@@ -1,11 +1,11 @@
 // server.js
 // load the things we need
-var express = require('express');
-require('dotenv').load();
-var app = express();
+var express = require('express')
+require('dotenv').load()
+var app = express()
 
 // set the view engine to ejs
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs')
 
 // use res.render to load up an ejs view file
 
@@ -18,13 +18,13 @@ app.get('/', function(req, res) {
             { name: 'Home', url: '/' },
             { name: 'About', url: '/about' }
         ]
-    });
-});
+    })
+})
 
 // about page 
 app.get('/about', function(req, res) {
-    res.render('pages/about');
+    res.render('pages/about')
 });
 
-app.listen(process.env.PORT);
-console.log(`${process.env.PORT} is the magic port`);
+app.listen(process.env.PORT)
+console.log(`${process.env.PORT} is the magic port`)

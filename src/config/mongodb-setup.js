@@ -9,4 +9,4 @@ MongoClient.connect(url, function(err, db) {
   
 })
 
-exports.default =  db  
+exports.default = db
