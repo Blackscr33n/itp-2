@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient
-var url = "mongodb://localhost:27017/mydb"
+var url = `mongodb://${process.env.MDB_USER}:${process.env.MDB_PASS}@ds219832.mlab.com:19832/heroku_90t1mdnn`
 
 const db
 
