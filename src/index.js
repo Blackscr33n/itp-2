@@ -11,7 +11,14 @@ app.set('view engine', 'ejs');
 
 // index page 
 app.get('/', function(req, res) {
-    res.render('pages/index');
+    res.render('pages/index', {
+        'title' : 'awesome',
+        'content': 'Test  das ist ein cooler Paragraph - asd  asd dasda &uuml;',
+        'menuEntries': [
+            { name: 'Home', url: '/' },
+            { name: 'About', url: '/about' }
+        ]
+    });
 });
 
 // about page 
