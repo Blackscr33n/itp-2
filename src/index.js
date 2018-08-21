@@ -1,7 +1,9 @@
+// load config vars
+require('dotenv').load()
 // server.js
 // load the things we need
 var express = require('express')
-require('dotenv').load()
+var mdb = require('./config/mongodb-setup');
 var app = express()
 
 app.use(express.static('assets'))
