@@ -3,8 +3,9 @@ require('dotenv').load()
 // server.js
 // load the things we need
 var express = require('express')
-var mdb = require('./config/mongodb-setup');
+var mdb = require('./config/mongodb-setup')
 var app = express()
+var menuHelper = require('./helper/menu')
 
 app.use(express.static('assets'))
 // set the view engine to ejs
@@ -14,6 +15,8 @@ app.set('view engine', 'ejs')
 
 // index page 
 app.get('/', function(req, res) {
+    menuh = new menuHelper(mdb)
+    menuh.getMenu()
     res.render('pages/index', {
         'title' : 'Awesome!',
         'content': 'Lorem Ipsum',
