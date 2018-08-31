@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "assert": "^1.4.1",
     "backpack-core": "^0.7.0",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",

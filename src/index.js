@@ -11,6 +11,13 @@ app.set('view engine', 'ejs')
 
 // index page 
 app.get('/', function(req, res) {
+    const collection = db.collection('menu');
+  // Find some documents
+  collection.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    console.log("Found the following records");
+    console.log(docs)
+    //callback(docs);
     res.render('pages/index', {
         'title' : 'awesome',
         'content': 'Test  das ist ein cooler Paragraph - asd  asd dasda &uuml;',
@@ -19,6 +26,8 @@ app.get('/', function(req, res) {
             { name: 'About', url: '/about' }
         ]
     })
+  });
+    
 })
 
 // about page 
