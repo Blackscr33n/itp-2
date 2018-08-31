@@ -1,9 +1,13 @@
+// load config vars
+require('dotenv').load()
 // server.js
 // load the things we need
 var express = require('express')
-require('dotenv').load()
+var mdb = require('./config/mongodb-setup')
 var app = express()
+var menuHelper = require('./helper/menu')
 
+app.use(express.static('assets'))
 // set the view engine to ejs
 app.set('view engine', 'ejs')
 
@@ -19,8 +23,8 @@ app.get('/', function(req, res) {
     console.log(docs)
     //callback(docs);
     res.render('pages/index', {
-        'title' : 'awesome',
-        'content': 'Test  das ist ein cooler Paragraph - asd  asd dasda &uuml;',
+        'title' : 'Awesome!',
+        'content': 'Lorem Ipsum',
         'menuEntries': [
             { name: 'Home', url: '/' },
             { name: 'About', url: '/about' }
