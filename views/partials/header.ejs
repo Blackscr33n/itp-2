@@ -7,7 +7,7 @@
             </a>
             <ul class="nav navbar-nav">
                 <% menuEntries.forEach(function(entry) { %>
-                    <li><a href="<% entry.url %>" ><%= entry.name %></a></li>
+                    <li><a href="<%= entry.url  %>?page=<%=entry.page_id%>" ><%= entry.name %></a></li>
                 <% }); %>
             </ul>
         </div>
