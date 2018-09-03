@@ -31,6 +31,20 @@ class Page {
         })
     }
 
+    async getContent() {
+        return new Promise((resolve,reject) => {
+            var query = 'SELECT * FROM page_content WHERE page_id = ?'
+            this.mysql.query(query, this.id, async (err, res) => {
+                if(!err) {
+                    resolve(res)
+                } else {
+                    console.error(err)
+                    reject(err)
+                }
+            });
+        })
+    }
+
     static async getMainPages(mysql) {
         return new Promise((resolve,reject) => {
             var query = `SELECT * FROM pages WHERE ISNULL(parent_id)`

@@ -140,7 +140,7 @@ app.get('/about', (() => {
 // about page 
 app.get('/*', (() => {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(req, res) {
-        var menuEntries, pageId, entry, page, subpages, content;
+        var menuEntries, pageId, entry, page, subpages, content, i, element, subpage, subpageContent;
         return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
             while (1) switch (_context2.prev = _context2.next) {
                 case 0:
@@ -163,11 +163,11 @@ app.get('/*', (() => {
 
                     res.render('pages/index', {
                         'title': '404 Requested File not found',
-                        'content': `The url you wanted to reach doesn't exist`,
+                        'content': `The url you wanted to reach doesn't exist!`,
                         'menuEntries': menuEntries
                     });
 
-                    _context2.next = 20;
+                    _context2.next = 32;
                     break;
 
                 case 9:
@@ -177,7 +177,7 @@ app.get('/*', (() => {
 
                 case 12:
                     if (!_context2.sent) {
-                        _context2.next = 20;
+                        _context2.next = 32;
                         break;
                     }
 
@@ -187,18 +187,44 @@ app.get('/*', (() => {
                 case 15:
                     subpages = _context2.sent;
                     content = '';
+                    //content += '<p>' +  await page.getContent() + '</p>'
 
-                    subpages.forEach(function (element) {
-                        content += `<div><h2>${element.name}</h2><p>content</p></div>`;
-                    });
-                    console.log(subpages);
+                    i = 0;
+
+                case 18:
+                    if (!(i < subpages.length)) {
+                        _context2.next = 30;
+                        break;
+                    }
+
+                    element = subpages[i];
+                    subpage = new __WEBPACK_IMPORTED_MODULE_2__models_pages__["a" /* default */](mysql);
+                    _context2.next = 23;
+                    return subpage.init(element.id);
+
+                case 23:
+                    _context2.next = 25;
+                    return subpage.getContent();
+
+                case 25:
+                    subpageContent = _context2.sent;
+
+                    content += `<div><h2>${element.name}</h2><p>${subpageContent}</p></div>`;
+
+                case 27:
+                    i++;
+                    _context2.next = 18;
+                    break;
+
+                case 30:
+                    console.log(content);
                     res.render('pages/index', {
                         'title': page.name,
                         'content': content,
                         'menuEntries': menuEntries
                     });
 
-                case 20:
+                case 32:
                 case 'end':
                     return _context2.stop();
             }
@@ -1182,7 +1208,7 @@ class Page {
         }))();
     }
 
-    static getMainPages(mysql) {
+    getContent() {
         var _this3 = this;
 
         return _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee6() {
@@ -1190,14 +1216,17 @@ class Page {
                 while (1) switch (_context6.prev = _context6.next) {
                     case 0:
                         return _context6.abrupt('return', new Promise(function (resolve, reject) {
-                            var query = `SELECT * FROM pages WHERE ISNULL(parent_id)`;
-                            mysql.query(query, (() => {
+                            var query = 'SELECT * FROM page_content WHERE page_id = ?';
+                            _this3.mysql.query(query, _this3.id, (() => {
                                 var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee5(err, res) {
                                     return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
                                         while (1) switch (_context5.prev = _context5.next) {
                                             case 0:
                                                 if (!err) {
                                                     resolve(res);
+                                                } else {
+                                                    console.error(err);
+                                                    reject(err);
                                                 }
 
                                             case 1:
@@ -1218,6 +1247,45 @@ class Page {
                         return _context6.stop();
                 }
             }, _callee6, _this3);
+        }))();
+    }
+
+    static getMainPages(mysql) {
+        var _this4 = this;
+
+        return _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee8() {
+            return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee8$(_context8) {
+                while (1) switch (_context8.prev = _context8.next) {
+                    case 0:
+                        return _context8.abrupt('return', new Promise(function (resolve, reject) {
+                            var query = `SELECT * FROM pages WHERE ISNULL(parent_id)`;
+                            mysql.query(query, (() => {
+                                var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(err, res) {
+                                    return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
+                                        while (1) switch (_context7.prev = _context7.next) {
+                                            case 0:
+                                                if (!err) {
+                                                    resolve(res);
+                                                }
+
+                                            case 1:
+                                            case 'end':
+                                                return _context7.stop();
+                                        }
+                                    }, _callee7, _this4);
+                                }));
+
+                                return function (_x7, _x8) {
+                                    return _ref4.apply(this, arguments);
+                                };
+                            })());
+                        }));
+
+                    case 1:
+                    case 'end':
+                        return _context8.stop();
+                }
+            }, _callee8, _this4);
         }))();
     }
 }

@@ -33,7 +33,7 @@ app.get('/*', async(req, res) => {
     if(!entry) {
         res.render('pages/index', {
         'title' : '404 Requested File not found',
-        'content': `The url you wanted to reach doesn't exist`,
+        'content': `The url you wanted to reach doesn't exist!`,
         'menuEntries': menuEntries
         })
 
@@ -43,10 +43,16 @@ app.get('/*', async(req, res) => {
         if(await page.init(pageId)) {
             var subpages = await page.getAllSubpages()
             var content = '';
-            subpages.forEach(element => {
-                content += `<div><h2>${element.name}</h2><p>content</p></div>`
-            })
-            console.log(subpages)
+            //content += '<p>' +  await page.getContent() + '</p>'
+            
+            for(var i = 0; i<subpages.length; i++) {
+                var element = subpages[i]
+                var subpage = new Page(mysql)
+                await subpage.init(element.id)
+                var subpageContent = await subpage.getContent()
+                content += `<div><h2>${element.name}</h2><p>${subpageContent}</p></div>`  
+            }
+            console.log(content)
             res.render('pages/index', {
                 'title' : page.name,
                 'content': content,

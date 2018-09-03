@@ -39,3 +39,4 @@ INSERT INTO pages (name, parent_id) VALUES ('Was ist das LC Framework', 4);
 
 INSERT INTO pages (name) VALUES ('Einsatz der Technologien');
 
+INSERT INTO page_content (content, page_id) VALUES('Salesforce ist eine Customer-Relationship Management Plattform, die sich dadurch auszeichnet, dass sie zu 100% in der Cloud läuft und für Unternehmen keine Serverkosten etc. anfallen. Salesforce selbst ist dadurch Sicherheit einer der größten Faktoren, wenn es um Fortschritt und Entwicklung geht. Es gibt verschiedene Plattformen die Firmen helfen ihren Verkauf anzutreiben, ihre Marketinginstrumente besser zu verwalten oder Kundenbetreuung zu perfektionieren. Es gibt verschiedene Modelle von Salesforce, um den Anforderungen des jeweiligen Unternehmens perfekt zu entsprechen. Die Aufgabe meines Teams ist es, die bestehenden Unternehmensprozesse in Salesforce abzubilden und, falls es möglich ist, die Unternehmensprozesse zu optimieren.', 1);
