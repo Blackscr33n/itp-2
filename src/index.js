@@ -40,16 +40,21 @@ app.get('/*', async(req, res) => {
     } else {
         var page = new Page(mysql)
         
-
         if(await page.init(pageId)) {
+            var subpages = await page.getAllSubpages()
+            var content = '';
+            subpages.forEach(element => {
+                content += `<div><h2>${element.name}</h2><p>content</p></div>`
+            })
+            console.log(subpages)
             res.render('pages/index', {
                 'title' : page.name,
-                'content': 'Lorem Ipsum',
+                'content': content,
                 'menuEntries': menuEntries
             })
         }
     }
-});
+})
 
 
 app.listen(process.env.PORT)

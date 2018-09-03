@@ -140,7 +140,7 @@ app.get('/about', (() => {
 // about page 
 app.get('/*', (() => {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(req, res) {
-        var menuEntries, pageId, entry, page;
+        var menuEntries, pageId, entry, page, subpages, content;
         return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
             while (1) switch (_context2.prev = _context2.next) {
                 case 0:
@@ -167,7 +167,7 @@ app.get('/*', (() => {
                         'menuEntries': menuEntries
                     });
 
-                    _context2.next = 14;
+                    _context2.next = 20;
                     break;
 
                 case 9:
@@ -177,17 +177,28 @@ app.get('/*', (() => {
 
                 case 12:
                     if (!_context2.sent) {
-                        _context2.next = 14;
+                        _context2.next = 20;
                         break;
                     }
 
+                    _context2.next = 15;
+                    return page.getAllSubpages();
+
+                case 15:
+                    subpages = _context2.sent;
+                    content = '';
+
+                    subpages.forEach(function (element) {
+                        content += `<div><h2>${element.name}</h2><p>content</p></div>`;
+                    });
+                    console.log(subpages);
                     res.render('pages/index', {
                         'title': page.name,
-                        'content': 'Lorem Ipsum',
+                        'content': content,
                         'menuEntries': menuEntries
                     });
 
-                case 14:
+                case 20:
                 case 'end':
                     return _context2.stop();
             }
@@ -1138,13 +1149,16 @@ class Page {
                     case 0:
                         return _context4.abrupt('return', new Promise(function (resolve, reject) {
                             var query = 'SELECT * FROM pages WHERE parent_id = ?';
-                            mysql.query(query, _this2.id, (() => {
+                            _this2.mysql.query(query, _this2.id, (() => {
                                 var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee3(err, res) {
                                     return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                                         while (1) switch (_context3.prev = _context3.next) {
                                             case 0:
                                                 if (!err) {
                                                     resolve(res);
+                                                } else {
+                                                    console.error(err);
+                                                    reject(err);
                                                 }
 
                                             case 1:

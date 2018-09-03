@@ -20,9 +20,12 @@ class Page {
     async getAllSubpages() {
         return new Promise((resolve,reject) => {
             var query = 'SELECT * FROM pages WHERE parent_id = ?'
-            mysql.query(query,this.id, async (err, res) => {
+            this.mysql.query(query,this.id, async (err, res) => {
                 if(!err) {
                     resolve(res)
+                } else {
+                    console.error(err)
+                    reject(err)
                 }
             });
         })
