@@ -140,7 +140,7 @@ app.get('/about', (() => {
 // about page 
 app.get('/*', (() => {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(req, res) {
-        var menuEntries, pageId, entry, page, subpages, content, i, element, subpage, subpageContent;
+        var menuEntries, pageId, entry, page, subpages, content, pageContent, i, element, subpage, subpageContent;
         return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
             while (1) switch (_context2.prev = _context2.next) {
                 case 0:
@@ -167,7 +167,7 @@ app.get('/*', (() => {
                         'menuEntries': menuEntries
                     });
 
-                    _context2.next = 32;
+                    _context2.next = 41;
                     break;
 
                 case 9:
@@ -177,7 +177,7 @@ app.get('/*', (() => {
 
                 case 12:
                     if (!_context2.sent) {
-                        _context2.next = 32;
+                        _context2.next = 41;
                         break;
                     }
 
@@ -187,36 +187,54 @@ app.get('/*', (() => {
                 case 15:
                     subpages = _context2.sent;
                     content = '';
-                    //content += '<p>' +  await page.getContent() + '</p>'
+                    _context2.next = 19;
+                    return page.getContent();
 
+                case 19:
+                    pageContent = _context2.sent;
+
+                    if (!pageContent) {
+                        _context2.next = 26;
+                        break;
+                    }
+
+                    _context2.next = 23;
+                    return page.getContent();
+
+                case 23:
+                    _context2.t0 = _context2.sent;
+                    _context2.t1 = '<p>' + _context2.t0;
+                    content += _context2.t1 + '</p>';
+
+                case 26:
                     i = 0;
 
-                case 18:
+                case 27:
                     if (!(i < subpages.length)) {
-                        _context2.next = 30;
+                        _context2.next = 39;
                         break;
                     }
 
                     element = subpages[i];
                     subpage = new __WEBPACK_IMPORTED_MODULE_2__models_pages__["a" /* default */](mysql);
-                    _context2.next = 23;
+                    _context2.next = 32;
                     return subpage.init(element.id);
 
-                case 23:
-                    _context2.next = 25;
+                case 32:
+                    _context2.next = 34;
                     return subpage.getContent();
 
-                case 25:
+                case 34:
                     subpageContent = _context2.sent;
 
                     content += `<div><h2>${element.name}</h2><p>${subpageContent}</p></div>`;
 
-                case 27:
+                case 36:
                     i++;
-                    _context2.next = 18;
+                    _context2.next = 27;
                     break;
 
-                case 30:
+                case 39:
                     console.log(content);
                     res.render('pages/index', {
                         'title': page.name,
@@ -224,7 +242,7 @@ app.get('/*', (() => {
                         'menuEntries': menuEntries
                     });
 
-                case 32:
+                case 41:
                 case 'end':
                     return _context2.stop();
             }
@@ -1222,11 +1240,11 @@ class Page {
                                     return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
                                         while (1) switch (_context5.prev = _context5.next) {
                                             case 0:
-                                                if (!err) {
-                                                    resolve(res);
+                                                if (!err && res.length > 0) {
+                                                    resolve(res[0].content);
                                                 } else {
                                                     console.error(err);
-                                                    reject(err);
+                                                    resolve(null);
                                                 }
 
                                             case 1:

@@ -43,7 +43,10 @@ app.get('/*', async(req, res) => {
         if(await page.init(pageId)) {
             var subpages = await page.getAllSubpages()
             var content = '';
-            //content += '<p>' +  await page.getContent() + '</p>'
+            var pageContent = await page.getContent()
+            if (pageContent) {
+                content += '<p>' +  await page.getContent() + '</p>'
+            }
             
             for(var i = 0; i<subpages.length; i++) {
                 var element = subpages[i]

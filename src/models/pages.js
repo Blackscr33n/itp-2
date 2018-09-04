@@ -35,11 +35,11 @@ class Page {
         return new Promise((resolve,reject) => {
             var query = 'SELECT * FROM page_content WHERE page_id = ?'
             this.mysql.query(query, this.id, async (err, res) => {
-                if(!err) {
-                    resolve(res)
+                if(!err && res.length > 0) {
+                    resolve(res[0].content)
                 } else {
                     console.error(err)
-                    reject(err)
+                    resolve(null)
                 }
             });
         })
