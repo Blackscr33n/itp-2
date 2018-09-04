@@ -45,6 +45,20 @@ class Page {
         })
     }
 
+    async hasSubpages() {
+        return new Promise((resolve,reject) => {
+            var query = 'SELECT COUNT(*) AS subpage_count FROM pages WHERE parent_id = ?'
+            this.mysql.query(query, this.id, async (err, res) => {
+                if(!err && res.length > 0) {
+                    resolve( (res[0].subpage_count > 0) ? true : false) 
+                } else {
+                    //console.error(err)
+                    resolve(null)
+                }
+            });
+        })
+    }
+
     static async getMainPages(mysql) {
         return new Promise((resolve,reject) => {
             var query = `SELECT * FROM pages WHERE ISNULL(parent_id)`

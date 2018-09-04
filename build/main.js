@@ -140,7 +140,7 @@ app.get('/about', (() => {
 // about page 
 app.get('/*', (() => {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2(req, res) {
-        var menuEntries, pageId, entry, page, subpages, content, pageContent, i, element, subpage, subpageContent;
+        var menuEntries, pageId, entry, page, subpages, content, pageContent, i, element, subpage, subpageContent, hasSubpages, subsubpages, subsubpage, subsubpageContent;
         return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
             while (1) switch (_context2.prev = _context2.next) {
                 case 0:
@@ -167,7 +167,7 @@ app.get('/*', (() => {
                         'menuEntries': menuEntries
                     });
 
-                    _context2.next = 41;
+                    _context2.next = 60;
                     break;
 
                 case 9:
@@ -177,7 +177,7 @@ app.get('/*', (() => {
 
                 case 12:
                     if (!_context2.sent) {
-                        _context2.next = 41;
+                        _context2.next = 60;
                         break;
                     }
 
@@ -211,7 +211,7 @@ app.get('/*', (() => {
 
                 case 27:
                     if (!(i < subpages.length)) {
-                        _context2.next = 39;
+                        _context2.next = 59;
                         break;
                     }
 
@@ -228,21 +228,64 @@ app.get('/*', (() => {
                     subpageContent = _context2.sent;
 
                     content += `<div><h2>${element.name}</h2><p>${subpageContent}</p></div>`;
+                    _context2.next = 38;
+                    return subpage.hasSubpages();
 
-                case 36:
+                case 38:
+                    hasSubpages = _context2.sent;
+
+                    console.log(hasSubpages);
+
+                    if (!(hasSubpages == true)) {
+                        _context2.next = 56;
+                        break;
+                    }
+
+                    _context2.next = 43;
+                    return subpage.getAllSubpages();
+
+                case 43:
+                    subsubpages = _context2.sent;
+                    i = 0;
+
+                case 45:
+                    if (!(i < subpages.length)) {
+                        _context2.next = 56;
+                        break;
+                    }
+
+                    subsubpage = new __WEBPACK_IMPORTED_MODULE_2__models_pages__["a" /* default */](mysql);
+                    _context2.next = 49;
+                    return subsubpage.init(subsubpages[i].id);
+
+                case 49:
+                    _context2.next = 51;
+                    return subsubpage.getContent();
+
+                case 51:
+                    subsubpageContent = _context2.sent;
+
+                    content += `<div><h2>${subsubpages[i].name}</h2><p>${subsubpageContent}</p></div>`;
+
+                case 53:
+                    i++;
+                    _context2.next = 45;
+                    break;
+
+                case 56:
                     i++;
                     _context2.next = 27;
                     break;
 
-                case 39:
-                    console.log(content);
+                case 59:
+
                     res.render('pages/index', {
                         'title': page.name,
                         'content': content,
                         'menuEntries': menuEntries
                     });
 
-                case 41:
+                case 60:
                 case 'end':
                     return _context2.stop();
             }
@@ -1268,7 +1311,7 @@ class Page {
         }))();
     }
 
-    static getMainPages(mysql) {
+    hasSubpages() {
         var _this4 = this;
 
         return _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee8() {
@@ -1276,14 +1319,17 @@ class Page {
                 while (1) switch (_context8.prev = _context8.next) {
                     case 0:
                         return _context8.abrupt('return', new Promise(function (resolve, reject) {
-                            var query = `SELECT * FROM pages WHERE ISNULL(parent_id)`;
-                            mysql.query(query, (() => {
+                            var query = 'SELECT COUNT(*) AS subpage_count FROM pages WHERE parent_id = ?';
+                            _this4.mysql.query(query, _this4.id, (() => {
                                 var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee7(err, res) {
                                     return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee7$(_context7) {
                                         while (1) switch (_context7.prev = _context7.next) {
                                             case 0:
-                                                if (!err) {
-                                                    resolve(res);
+                                                if (!err && res.length > 0) {
+                                                    resolve(res[0].subpage_count > 0 ? true : false);
+                                                } else {
+                                                    //console.error(err)
+                                                    resolve(null);
                                                 }
 
                                             case 1:
@@ -1304,6 +1350,45 @@ class Page {
                         return _context8.stop();
                 }
             }, _callee8, _this4);
+        }))();
+    }
+
+    static getMainPages(mysql) {
+        var _this5 = this;
+
+        return _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee10() {
+            return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee10$(_context10) {
+                while (1) switch (_context10.prev = _context10.next) {
+                    case 0:
+                        return _context10.abrupt('return', new Promise(function (resolve, reject) {
+                            var query = `SELECT * FROM pages WHERE ISNULL(parent_id)`;
+                            mysql.query(query, (() => {
+                                var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.mark(function _callee9(err, res) {
+                                    return __WEBPACK_IMPORTED_MODULE_0__Users_bernhardmiehl_Development_NodeJS_itp_2_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee9$(_context9) {
+                                        while (1) switch (_context9.prev = _context9.next) {
+                                            case 0:
+                                                if (!err) {
+                                                    resolve(res);
+                                                }
+
+                                            case 1:
+                                            case 'end':
+                                                return _context9.stop();
+                                        }
+                                    }, _callee9, _this5);
+                                }));
+
+                                return function (_x9, _x10) {
+                                    return _ref5.apply(this, arguments);
+                                };
+                            })());
+                        }));
+
+                    case 1:
+                    case 'end':
+                        return _context10.stop();
+                }
+            }, _callee10, _this5);
         }))();
     }
 }

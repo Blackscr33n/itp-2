@@ -53,9 +53,19 @@ app.get('/*', async(req, res) => {
                 var subpage = new Page(mysql)
                 await subpage.init(element.id)
                 var subpageContent = await subpage.getContent()
-                content += `<div><h2>${element.name}</h2><p>${subpageContent}</p></div>`  
+                content += `<div><h2>${element.name}</h2><p>${subpageContent}</p></div>` 
+                var hasSubpages = await subpage.hasSubpages(); 
+                if(hasSubpages == true) {
+                    var subsubpages = await subpage.getAllSubpages()
+                    for(var i = 0; i<subpages.length; i++) {
+                        var subsubpage = new Page(mysql)
+                        await subsubpage.init(subsubpages[i].id)
+                        var subsubpageContent = await subsubpage.getContent()
+                        content += `<div><h2>${subsubpages[i].name}</h2><p>${subsubpageContent}</p></div>` 
+                    }
+                }
             }
-            console.log(content)
+            
             res.render('pages/index', {
                 'title' : page.name,
                 'content': content,
