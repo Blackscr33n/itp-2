@@ -167,7 +167,7 @@ app.get('/*', (() => {
                         'menuEntries': menuEntries
                     });
 
-                    _context2.next = 60;
+                    _context2.next = 59;
                     break;
 
                 case 9:
@@ -177,7 +177,7 @@ app.get('/*', (() => {
 
                 case 12:
                     if (!_context2.sent) {
-                        _context2.next = 60;
+                        _context2.next = 59;
                         break;
                     }
 
@@ -211,7 +211,7 @@ app.get('/*', (() => {
 
                 case 27:
                     if (!(i < subpages.length)) {
-                        _context2.next = 59;
+                        _context2.next = 58;
                         break;
                     }
 
@@ -234,50 +234,48 @@ app.get('/*', (() => {
                 case 38:
                     hasSubpages = _context2.sent;
 
-                    console.log(hasSubpages);
-
                     if (!(hasSubpages == true)) {
-                        _context2.next = 56;
+                        _context2.next = 55;
                         break;
                     }
 
-                    _context2.next = 43;
+                    _context2.next = 42;
                     return subpage.getAllSubpages();
 
-                case 43:
+                case 42:
                     subsubpages = _context2.sent;
                     i = 0;
 
-                case 45:
+                case 44:
                     if (!(i < subpages.length)) {
-                        _context2.next = 56;
+                        _context2.next = 55;
                         break;
                     }
 
                     subsubpage = new __WEBPACK_IMPORTED_MODULE_2__models_pages__["a" /* default */](mysql);
-                    _context2.next = 49;
+                    _context2.next = 48;
                     return subsubpage.init(subsubpages[i].id);
 
-                case 49:
-                    _context2.next = 51;
+                case 48:
+                    _context2.next = 50;
                     return subsubpage.getContent();
 
-                case 51:
+                case 50:
                     subsubpageContent = _context2.sent;
 
                     content += `<div><h2>${subsubpages[i].name}</h2><p>${subsubpageContent}</p></div>`;
 
-                case 53:
+                case 52:
                     i++;
-                    _context2.next = 45;
+                    _context2.next = 44;
                     break;
 
-                case 56:
+                case 55:
                     i++;
                     _context2.next = 27;
                     break;
 
-                case 59:
+                case 58:
 
                     res.render('pages/index', {
                         'title': page.name,
@@ -285,7 +283,7 @@ app.get('/*', (() => {
                         'menuEntries': menuEntries
                     });
 
-                case 60:
+                case 59:
                 case 'end':
                     return _context2.stop();
             }

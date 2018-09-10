@@ -43,7 +43,7 @@ INSERT INTO page_content (page_id, content) VALUES(1, 'Salesforce ist eine Custo
 
 INSERT INTO page_content (page_id, content ) VALUES(5, 'Apex ist eine Sprache der 3. Generation und streng typisiert, sowie objekt-orientiert. [1] Die Typisierung einer Sprache wird anhand der Möglichkeiten, wie viele implizite Konvertierungen von einem Datentyp in einen anderen möglich sein. [2] Zum Beispiel erlaubt PHP fast jeden Typ in einen anderen implizit zu casten, wobei dies bei Apex kaum möglich ist. Die Syntax von Apex ist sehr an die Syntax von Java angelegt.');
 
-INSERT INTO page_content (page_id, content) VALUES(6, "<img src='/assets/grundkonzept.png' alt='Grundkonzepte' />");
+INSERT INTO page_content (page_id, content) VALUES(6, "<img src='./assets/images/grundkonzept.png' alt='Grundkonzepte' />");
 
 INSERT INTO page_content (page_id, content) VALUES(9, 'In Apex gibt es folgende Arten von Schleifen: 1. Do-while 2. While 3. For Eine Do-While Schleife wird mindestens einmal ausgeführt und überprüft danach die Kondition. Damit eine While Schleife ausgeführt wird, muss die Kondition vor dem Start erfüllt sein. Eine For Schleife wird so lange ausgeführt, bis die Kondition falsch ist. Für alle Schleifen gilt: 1. break; - bricht die ganze Schleife ab 2. continue; - springt zum nächsten Iterationsschritt Für beide gilt grundsätzlich, dass diese nur dann verwendet werden sollten, wenn es keine andere Möglichkeit gibt, da die Verwendung dieser Keywords als schlechter Programmierstil gilt.');
 
